@@ -1,4 +1,4 @@
-AC_INIT([C Autoconf Template], m4_esyscmd([./version.sh]), [https://github.com/mintsuki/c-autoconf-template/issues], [c-autoconf-template])
+AC_INIT([C Autoconf Template], [m4_esyscmd([./version.sh])], [https://github.com/mintsuki/c-autoconf-template/issues], [c-autoconf-template])
 
 AC_PREREQ([2.69])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -15,11 +15,11 @@ AC_LANG([C])
 AC_PROG_CC
 
 AC_CHECK_HEADERS([stdio.h],
-    [], AC_MSG_ERROR([required header not found]))
+    [], [AC_MSG_ERROR([required header not found])])
 
 werror_state="no"
 AC_ARG_ENABLE([werror],
-    AS_HELP_STRING([--enable-werror], [treat warnings as errors]),
+    [AS_HELP_STRING([--enable-werror], [treat warnings as errors])],
     [werror_state="$enableval"])
 if test "$werror_state" = "yes"; then
     CFLAGS="$CFLAGS -Werror"
