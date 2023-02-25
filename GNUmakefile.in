@@ -50,11 +50,12 @@ LIBS ?= @LIBS@
 
 # Needed command flags.
 override CFLAGS += \
-    -std=gnu11 \
-    -MMD
+    -std=gnu11
+
 override CPPFLAGS := \
     -I'$(call SHESCAPE,$(SRCDIR))' \
-    $(CPPFLAGS)
+    $(CPPFLAGS) \
+    -MMD
 
 # Default target.
 .PHONY: all
