@@ -3,6 +3,12 @@ AC_INIT([C Autoconf Template], [m4_esyscmd([./version.sh])], [https://github.com
 AC_PREREQ([2.69])
 AC_CONFIG_AUX_DIR([build-aux])
 
+AC_DEFUN([PROG_ABSPATH], [
+    case "$$1" in
+        .*) $1="$(cd "$(dirname "$$1")" && pwd -P)/$(basename "$$1")" ;;
+    esac
+])
+
 SRCDIR="$(cd "$srcdir" && pwd -P)"
 BUILDDIR="$(pwd -P)"
 
@@ -13,6 +19,7 @@ test "x$CFLAGS" = "x" && CFLAGS='-g -O2 -pipe -Wall -Wextra'
 
 AC_LANG([C])
 AC_PROG_CC
+PROG_ABSPATH([CC])
 
 AC_CHECK_HEADERS([stdio.h],
     [], [AC_MSG_ERROR([required header not found])])
@@ -26,13 +33,9 @@ if test "$werror_state" = "yes"; then
 fi
 
 AC_PROG_MKDIR_P
-case "$MKDIR_P" in
-    .*) MKDIR_P="$(cd "$(dirname "$MKDIR_P")" && pwd -P)/$(basename "$MKDIR_P")" ;;
-esac
+PROG_ABSPATH([MKDIR_P])
 AC_PROG_INSTALL
-case "$INSTALL" in
-    .*) INSTALL="$(cd "$(dirname "$INSTALL")" && pwd -P)/$(basename "$INSTALL")" ;;
-esac
+PROG_ABSPATH([INSTALL])
 
 AC_CHECK_PROG([FIND_FOUND], [find], [yes])
 if ! test "x$FIND_FOUND" = "xyes"; then
