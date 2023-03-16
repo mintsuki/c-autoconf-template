@@ -3,17 +3,17 @@ AC_INIT([C Autoconf Template], [m4_esyscmd([./version.sh])], [https://github.com
 AC_PREREQ([2.69])
 AC_CONFIG_AUX_DIR([build-aux])
 
-AC_DEFUN([PROG_ABSPATH], [
-    case "$$1" in
-        .*) $1="$(cd "$(dirname "$$1")" && pwd -P)/$(basename "$$1")" ;;
-    esac
-])
-
 SRCDIR="$(cd "$srcdir" && pwd -P)"
 BUILDDIR="$(pwd -P)"
 
 AC_SUBST([SRCDIR])
 AC_SUBST([BUILDDIR])
+
+AC_DEFUN([PROG_ABSPATH], [
+    case "$$1" in
+        .*) $1="$(cd "$(dirname "$$1")" && pwd -P)/$(basename "$$1")" ;;
+    esac
+])
 
 test "x$CFLAGS" = "x" && CFLAGS='-g -O2 -pipe -Wall -Wextra'
 
