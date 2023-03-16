@@ -25,8 +25,8 @@ override CFILES := $(shell cd '$(call SHESCAPE,$(SRCDIR))' && find . -type f -na
 override OBJ := $(addprefix $(call MKESCAPE,$(BUILDDIR))/,$(CFILES:.c=.o))
 override HEADER_DEPS := $(CFILES:.c=.d)
 
-# PROPER_ASSIGN definition.
-define PROPER_ASSIGN =
+# DEFAULT_VAR definition.
+define DEFAULT_VAR =
     ifeq ($(origin $1),default)
         override $(1) := $(2)
     endif
@@ -35,18 +35,20 @@ define PROPER_ASSIGN =
     endif
 endef
 
-# Generator executables.
-$(eval $(call PROPER_ASSIGN,CC,@CC@))
+# Overridable generator executables.
+$(eval $(call DEFAULT_VAR,CC,@CC@))
+
+# Non-overridable generator executables.
 override NATIVE_STRIP := @NATIVE_STRIP@
 override MKDIR_P := @MKDIR_P@
 override INSTALL := @INSTALL@
 override INSTALL_PROGRAM := @INSTALL_PROGRAM@
 
 # User command flags.
-CFLAGS ?= @CFLAGS@
-CPPFLAGS ?= @CPPFLAGS@
-LDFLAGS ?= @LDFLAGS@
-LIBS ?= @LIBS@
+$(eval $(call DEFAULT_VAR,CFLAGS,@CFLAGS@))
+$(eval $(call DEFAULT_VAR,CPPFLAGS,@CPPFLAGS@))
+$(eval $(call DEFAULT_VAR,LDFLAGS,@LDFLAGS@))
+$(eval $(call DEFAULT_VAR,LIBS,@LIBS@))
 
 # Needed command flags.
 override CFLAGS += \
