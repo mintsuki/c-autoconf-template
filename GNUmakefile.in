@@ -57,7 +57,8 @@ override CFLAGS += \
 override CPPFLAGS := \
     -I'$(call SHESCAPE,$(SRCDIR))' \
     $(CPPFLAGS) \
-    -MMD
+    -MMD \
+    -MP
 
 # Default target.
 .PHONY: all

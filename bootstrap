@@ -7,7 +7,7 @@ test -z "$srcdir" && srcdir=.
 
 cd "$srcdir"
 
-automake_libdir="$(automake --print-libdir)"
 mkdir -p build-aux
-cp "${automake_libdir}/install-sh" build-aux
-autoreconf -fvi
+cp "$(automake --print-libdir)/install-sh" build-aux
+
+autoreconf -fvi -Wall
