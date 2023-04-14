@@ -21,9 +21,6 @@ AC_LANG([C])
 AC_PROG_CC
 PROG_ABSPATH([CC])
 
-AC_CHECK_HEADERS([stdio.h],
-    [], [AC_MSG_ERROR([required header not found])])
-
 werror_state="no"
 AC_ARG_ENABLE([werror],
     [AS_HELP_STRING([--enable-werror], [treat warnings as errors])],
@@ -50,6 +47,9 @@ if ! test "x$NATIVE_STRIP_FOUND" = "xyes"; then
     NATIVE_STRIP=strip
 fi
 AC_SUBST([NATIVE_STRIP])
+
+AC_CHECK_HEADERS([stdio.h],
+    [], [AC_MSG_ERROR([required header not found])])
 
 AC_PREFIX_DEFAULT([/usr/local])
 AC_CONFIG_FILES([GNUmakefile])
