@@ -41,12 +41,12 @@ if ! test "x$FIND_FOUND" = "xyes"; then
     AC_MSG_ERROR([find not found, please install find before configuring])
 fi
 
-NATIVE_STRIP="$($CC -dumpmachine)"-strip
-AC_CHECK_PROG([NATIVE_STRIP_FOUND], [$NATIVE_STRIP], [yes])
-if ! test "x$NATIVE_STRIP_FOUND" = "xyes"; then
-    NATIVE_STRIP=strip
+STRIP="$($CC -dumpmachine)"-strip
+AC_CHECK_PROG([STRIP_FOUND], [$STRIP], [yes])
+if ! test "x$STRIP_FOUND" = "xyes"; then
+    STRIP=strip
 fi
-AC_SUBST([NATIVE_STRIP])
+AC_SUBST([STRIP])
 
 AC_CHECK_HEADERS([stdio.h],
     [], [AC_MSG_ERROR([required header not found])])
