@@ -27,9 +27,9 @@ SHESCAPE = $(subst ','\'',$(1))
 OBJESCAPE = $(subst .a ,.a' ',$(subst .o ,.o' ',$(call SHESCAPE,$(1))))
 
 # File lists.
-override CFILES := $(shell cd '$(call SHESCAPE,$(SRCDIR))' && find . -type f -name '*.c')
+override CFILES := $(shell cd '$(call SHESCAPE,$(SRCDIR))' && find -L . -type f -name '*.c')
 override OBJ := $(addprefix $(call MKESCAPE,$(BUILDDIR))/,$(CFILES:.c=.c.o))
-override HEADER_DEPS := $(CFILES:.c=.d)
+override HEADER_DEPS := $(CFILES:.c=.c.d)
 
 # DEFAULT_VAR definition.
 define DEFAULT_VAR =
