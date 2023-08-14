@@ -48,6 +48,18 @@ if ! test "x$STRIP_FOUND" = "xyes"; then
 fi
 AC_SUBST([STRIP])
 
+PKGCONFIG="$($CC -dumpmachine)"-pkg-config
+AC_CHECK_PROG([PKGCONFIG_FOUND], [$PKGCONFIG], [yes])
+if ! test "x$PKGCONFIG_FOUND" = "xyes"; then
+    PKGCONFIG=pkg-config
+fi
+
+PKGCONFIG_LIBS=""
+
+CFLAGS="$CFLAGS $($PKGCONFIG --cflags-only-other $PKGCONFIG_LIBS 2>/dev/null)"
+CPPFLAGS="$($PKGCONFIG --cflags-only-I $PKGCONFIG_LIBS 2>/dev/null) $CPPFLAGS"
+LIBS="$LIBS $($PKGCONFIG --libs $PKGCONFIG_LIBS 2>/dev/null)"
+
 AC_CHECK_HEADERS([stdio.h],
     [], [AC_MSG_ERROR([required header not found])])
 
