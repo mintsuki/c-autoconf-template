@@ -1,7 +1,8 @@
 *.o
-*.d
+*.dep
 *.tar.gz
 *.tar.xz
+/obj
 /bin
 /GNUmakefile
 /autom4te.cache
