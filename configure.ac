@@ -1,6 +1,7 @@
 AC_INIT([C Autoconf Template], [m4_esyscmd([./version.sh])], [https://github.com/mintsuki/c-autoconf-template/issues], [c-autoconf-template])
 
 AC_PREREQ([2.69])
+
 AC_CONFIG_AUX_DIR([build-aux])
 
 SRCDIR="$(cd "$srcdir" && pwd -P)"
@@ -64,5 +65,6 @@ AC_CHECK_HEADERS([stdio.h],
     [], [AC_MSG_ERROR([required header not found])])
 
 AC_PREFIX_DEFAULT([/usr/local])
+
 AC_CONFIG_FILES([GNUmakefile])
 AC_OUTPUT
